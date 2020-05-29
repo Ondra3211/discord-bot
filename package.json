@@ -1,0 +1,25 @@
+{
+  "name": "orezbot",
+  "version": "1.0.0",
+  "description": "Discord Bot",
+  "main": "index.js",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "discord.js": "^12.2.0",
+    "ffmpeg-static": "^4.2.2",
+    "node-fetch": "^2.6.0",
+    "ytdl-core": "^2.1.4",
+    "ytpl": "^0.1.21",
+    "ytsr": "^0.1.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ],
+  "author": "Ondřej Niesner",
+  "license": "ISC"
+}
