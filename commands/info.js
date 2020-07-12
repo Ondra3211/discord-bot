@@ -38,10 +38,9 @@ module.exports = {
         const embed = new MessageEmbed()
         .setTitle('**Nyní hraje**')
         .setColor('#5cb85c')
-        .setAuthor('OrezBot', 'https://i.zerocz.eu/ja/oK91t2uX2i.png')
+        .setAuthor('SlimeBall', 'https://i.zerocz.eu/ja/7dQuXUidrC.png')
         .setDescription(`[${song.title}](${song.url})\n${message}`)
-        .setThumbnail(`https://i.ytimg.com/vi/${song.id}/hqdefault.jpg?sqp=-oa`)
-        .setTimestamp();
+        .setThumbnail(`https://i.ytimg.com/vi/${song.id}/hqdefault.jpg`)
         
         msg.channel.send(embed);
 	}

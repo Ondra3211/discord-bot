@@ -16,6 +16,15 @@ module.exports = {
             return;
         }
 
+        if (!args[0]) return serverQueue.connection.dispatcher.end();
+        if (isNaN(args[0])) return;
+
+        if (args[0] < 1 || args[0] > serverQueue.songs.length) return msg.channel.send(':x: Nelze přeskočit');
+
+        for (let i = 0; i < (args[0] - 1); i++) {
+            serverQueue.songs.shift();
+        }
+
         serverQueue.connection.dispatcher.end();
 
     }

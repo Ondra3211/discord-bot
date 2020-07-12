@@ -1,5 +1,6 @@
 module.exports = {
-	name: 'volume',
+    name: 'volume',
+    aliases: ['vol'],
     description: 'Nastaví hlasitost skladby',
     voice: true,
 	async execute(msg, args) {
@@ -21,12 +22,13 @@ module.exports = {
             return;
         }
 
-        const volume = (args[0] / 100);
+        const songVolume = Math.floor(args[0]);
+        const volume = songVolume / 100;
 
         serverQueue.connection.dispatcher.setVolume(volume);
         serverQueue.volume = volume;
 
-        msg.channel.send(`:loud_sound: Hlasitost nastavena na ${args[0]}%`);
+        msg.channel.send(`:loud_sound: Hlasitost nastavena na ${songVolume}%`);
 
     }
 };

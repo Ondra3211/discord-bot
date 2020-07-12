@@ -19,9 +19,10 @@ module.exports = {
     },
 
     strToSec(str) {
+
         const t = str.split(':');
 
-        if (t.length > 2) return (+t[0]) * 60 * 60 * (+t[1]) * 60 + (+t[2]);
+        if (t.length > 2) return (+t[0]) * 60 * 60 + (+t[1]) * 60 + (+t[2]);
         if (t.length > 1) return ((+t[0]) * 60 + (+t[1]));
 
         return (+t[0]);

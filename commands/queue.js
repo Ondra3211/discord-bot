@@ -36,11 +36,10 @@ module.exports = {
         const embed = new MessageEmbed()
         .setTitle('**Fronta**')
         .setColor('#5cb85c')
-        .setAuthor('OrezBot', 'https://i.zerocz.eu/ja/oK91t2uX2i.png')
+        .setAuthor('SlimeBall', 'https://i.zerocz.eu/ja/7dQuXUidrC.png')
         .setDescription(message)
         .setThumbnail(`https://i.ytimg.com/vi/${songs[1].id}/hqdefault.jpg`)
         .setFooter(`Stránka ${page}/${maxPage}`)
-        .setTimestamp();
 
         msg.channel.send(embed);
     }

@@ -1,13 +1,14 @@
 const fs = require('fs');
-const Discord = require('discord.js');
+const { Client, Collection } = require('discord.js');
 const { prefix, token } = require('./config.json');
 
-const client = new Discord.Client();
+const client = new Client();
 
-client.commands = new Discord.Collection();
+client.commands = new Collection();
 client.queue = new Map();
+client.settings = require('./guilds.json');
 
-console.log('[DEBUG] Nacitam prikazy...');
+console.log('[INFO] Načítam příkazy...');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -16,8 +17,12 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
+console.log('[INFO] Příkazy byly úspěšně načteny');
+
+
+
 client.once('ready', async () => {
-    console.log(`[INFO] Pripraven! ${client.user.tag}`);
+    console.log(`[INFO] Připojen za ${client.user.tag}`);
 
     let activity = 0;
 
@@ -45,9 +50,13 @@ client.once('ready', async () => {
 });
 
 client.on('message', msg => {
-    if (!msg.guild || !msg.content.startsWith(prefix) || msg.author.bot) return;
+    if (!msg.guild || msg.author.bot) return;
 
-	const args = msg.content.slice(prefix.length).split(/ +/);
+    const guildPrefix = client.settings[msg.guild.id] && client.settings[msg.guild.id].prefix || prefix;
+
+    if (!msg.content.startsWith(guildPrefix)) return;
+
+	const args = msg.content.slice(guildPrefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
     const queue = msg.client.queue.get(msg.guild.id);
 
@@ -59,12 +68,16 @@ client.on('message', msg => {
         if (!msg.member.voice.channel || (queue && msg.member.voice.channel.id !== queue.voice.id)) return msg.channel.send(':x: Musíš být ve voice channelu');
     }
 
+    if (command.permission) {
+        if (!msg.member.hasPermission(command.permission)) return command.permission_message ? msg.channel.send(command.permission_message) : msg.channel.send(':x: Nedostatečná oprávnění');
+    }
+
     try {
-        client.commands.get(commandName).execute(msg, args);
+        command.execute(msg, args);
     } catch (error) {
-        console.log('[ERROR]');
-        console.error(error);
-        //msg.reply('there was an error trying to execute that command!');
+        //console.log('[ERROR]');
+        //console.error(error);
+        //msg.reply('Zero je kokot a neumí programovat, proto se tento příkaz nevykonal. Vyčkej prosím na opravu. Děkuji za pochopení.');
     }
 });
 

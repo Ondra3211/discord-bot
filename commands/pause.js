@@ -1,5 +1,6 @@
 module.exports = {
-	name: 'pause',
+    name: 'pause',
+    aliases: ['stop'],
 	description: 'Pozastaví přehrávání',
 	voice: true,
 	async execute(msg, args) {
