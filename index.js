@@ -5,19 +5,21 @@ const { prefix, token } = require('./config.json');
 const client = new Client();
 
 client.commands = new Collection();
+client.games = new Collection();
 client.queue = new Map();
 client.settings = require('./guilds.json');
-
-console.log('[INFO] Načítam příkazy...');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
+    try {
+        console.log(`[INFO] Načítám ${file}`);
+	    const command = require(`./commands/${file}`);
+        client.commands.set(command.name, command);
+    } catch(error) {
+        console.log(`[INFO] Chyba při načítání ${file}`);
+    }
 }
-
-console.log('[INFO] Příkazy byly úspěšně načteny');
 
 
 
@@ -72,13 +74,11 @@ client.on('message', msg => {
         if (!msg.member.hasPermission(command.permission)) return command.permission_message ? msg.channel.send(command.permission_message) : msg.channel.send(':x: Nedostatečná oprávnění');
     }
 
-    try {
-        command.execute(msg, args);
-    } catch (error) {
-        //console.log('[ERROR]');
-        //console.error(error);
-        //msg.reply('Zero je kokot a neumí programovat, proto se tento příkaz nevykonal. Vyčkej prosím na opravu. Děkuji za pochopení.');
-    }
+    
+    command.execute(msg, args).catch(err => {
+        console.log(`[INFO] Příkaz ${command.name}.js se nepovedlo vykonat`);
+        console.log(err);
+    });
 });
 
 client.login(token);
