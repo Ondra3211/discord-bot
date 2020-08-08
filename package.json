@@ -6,11 +6,11 @@
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "discord.js": "^12.2.0",
-    "ffmpeg-static": "^4.2.2",
+    "ffmpeg-static": "^4.2.6",
     "node-fetch": "^2.6.0",
-    "ytdl-core": "^2.1.4",
-    "ytpl": "^0.1.21",
-    "ytsr": "^0.1.14"
+    "ytdl-core": "^2.1.7",
+    "ytpl": "^0.1.22",
+    "ytsr": "^0.1.20"
   },
   "devDependencies": {},
   "scripts": {
