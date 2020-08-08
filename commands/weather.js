@@ -6,8 +6,7 @@ module.exports = {
 	description: 'Počasí',
 	async execute(msg, args) {
         if (!args[0]) {
-            msg.channel.send(':x: Musíš zadat město!');
-            return;
+            args[0] = 'Praha';
         }
 
         const city = args.join(' ');
@@ -21,14 +20,12 @@ module.exports = {
 
             const embed = new MessageEmbed()
             .setTitle('**Počasí**')
-            .setColor('#0C7CD5')
-            .setAuthor('SlimeBall', 'https://i.zerocz.eu/ja/oK91t2uX2i.png')
-            .setDescription(json.weather[0].description)
+            .setColor('#5cb85c')
+            .setDescription(`${json.name} - ${json.weather[0].description}`)
             .addFields(
-                { name: 'Město', value: json.name, inline: false },
-                { name: ':thermometer:', value: `${json.main.temp} °C`, inline: true },
-                { name: ':wind_blowing_face: ', value: `${json.wind.speed} m/s`, inline: true },
-                { name: ':cloud:', value: `${json.clouds.all} %`, inline: true}
+                { name: ':thermometer: Teplota', value: `${json.main.temp} °C`, inline: true },
+                { name: ':wind_blowing_face: Rychlost větru', value: `${json.wind.speed} m/s`, inline: true },
+                { name: ':cloud: Oblačnost', value: `${json.clouds.all} %`, inline: true}
             )
             .setThumbnail(`https://openweathermap.org/img/wn/${json.weather[0].icon}@4x.png`)
             .setTimestamp();
