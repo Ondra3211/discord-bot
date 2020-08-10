@@ -4,7 +4,7 @@ class SnakeGame {
     constructor(msg) {
         this.channel = msg.channel;
         this.user = msg.author;
-        this.mapSize = 2;
+        this.mapSize = 5;
         this.snakeBody = [this.generatePosition()];
         this.generateApple();
         this.newGame();
@@ -204,8 +204,6 @@ module.exports = {
 	async execute(msg, args) {
 
         const games = msg.client.games.get(msg.guild.id) || msg.client.games.set(msg.guild.id, new Collection()).get(msg.guild.id);
-
-        console.log(games);
 
        if (games.get(msg.author.id)) {
             msg.channel.send(':x: Již máš rozehranou hru!');
