@@ -182,7 +182,7 @@ class SnakeGame {
 
         let snakeCollision = false;
 
-        for (let i = 0; i < this.snakeBody.length; i++) {
+        for (let i = 1; i < this.snakeBody.length; i++) {
             if (newHead.x == this.snakeBody[i].x && newHead.y == this.snakeBody[i].y) {
                 snakeCollision = true;
             }
