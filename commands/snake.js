@@ -169,18 +169,6 @@ class SnakeGame {
             y: snakeY
         };
 
-        let duplicate = false;
-
-        for (let i = 0; i < this.snakeBody.length; i++) {
-            if (newHead.x == this.snakeBody[i].x && newHead.y == this.snakeBody[i].y) {
-                duplicate = true;
-            }
-        }
-
-        if (duplicate) {
-            return this.gameOver();
-        }
-
         this.snakeBody.unshift(newHead);
 
         if (newHead.x == this.mapApple.x && newHead.y == this.mapApple.y) {
@@ -190,6 +178,18 @@ class SnakeGame {
             this.generateApple();
         } else {
             this.snakeBody.pop();
+        }
+
+        let snakeCollision = false;
+
+        for (let i = 0; i < this.snakeBody.length; i++) {
+            if (newHead.x == this.snakeBody[i].x && newHead.y == this.snakeBody[i].y) {
+                snakeCollision = true;
+            }
+        }
+
+        if (snakeCollision) {
+            return this.gameOver();
         }
 
         this.updateMessage(this.drawMap());
