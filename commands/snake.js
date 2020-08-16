@@ -173,7 +173,7 @@ class SnakeGame {
 
         if (newHead.x == this.mapApple.x && newHead.y == this.mapApple.y) {
             if (this.snakeBody.length == (this.mapSize * this.mapSize)) {
-                return this.win()
+                return this.win();
             }
             this.generateApple();
         } else {
