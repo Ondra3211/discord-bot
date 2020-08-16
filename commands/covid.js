@@ -14,7 +14,7 @@ module.exports = {
             .setTitle('**:flag_cz: KORONAVIRUS**')
             .setColor('#5cb85c')
             .addFields(
-                { name: ':egg: Potvrzeno', value: json.infected, inline: true },
+                { name: ':egg: Potvrzeno', value: json.active, inline: true },
                 { name: ':syringe: Úmrtí', value: json.deceased, inline: true },
                 { name: ':pill: Vyléčení', value: json.recovered, inline: true }
             )
