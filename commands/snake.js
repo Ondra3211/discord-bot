@@ -103,7 +103,7 @@ class SnakeGame {
         const embed = new MessageEmbed()
         .setTitle('**Snake Game**')
         .setColor('#5cb85c')
-        .setDescription(':regional_indicator_l::regional_indicator_o::regional_indicator_a::regional_indicator_d::regional_indicator_i::regional_indicator_g:  :regional_indicator_g::regional_indicator_a::regional_indicator_m::regional_indicator_e:\n\n:grey_question: Ovládání w,a,s,d nebo pomocí reakce');
+        .setDescription(':regional_indicator_l::regional_indicator_o::regional_indicator_a::regional_indicator_d::regional_indicator_i::regional_indicator_g:  :regional_indicator_g::regional_indicator_a::regional_indicator_m::regional_indicator_e:\n\n:grey_question: Ovládání pomocí reakce');
 
         this.channel.send(embed).then(async message => {
 
