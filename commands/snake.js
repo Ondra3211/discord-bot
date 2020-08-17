@@ -171,6 +171,16 @@ class SnakeGame {
 
         this.snakeBody.unshift(newHead);
 
+        // Opraven bug kdy had se mohl otočit, kdy byl 2 kostičky dlouhý
+        // https://i.zerocz.eu/ja/v7EOtpZKT1.gif
+        const tailCollison = this.snakeBody.length == 3 ? this.snakeBody.length : this.snakeBody.length - 1;
+
+        for (let i = 1; i < tailCollison; i++) {
+            if (newHead.x == this.snakeBody[i].x && newHead.y == this.snakeBody[i].y) {
+                return this.gameOver();
+            }
+        }
+
         if (newHead.x == this.mapApple.x && newHead.y == this.mapApple.y) {
             if (this.snakeBody.length == (this.mapSize * this.mapSize)) {
                 return this.win();
@@ -178,18 +188,6 @@ class SnakeGame {
             this.generateApple();
         } else {
             this.snakeBody.pop();
-        }
-
-        let snakeCollision = false;
-
-        for (let i = 1; i < this.snakeBody.length; i++) {
-            if (newHead.x == this.snakeBody[i].x && newHead.y == this.snakeBody[i].y) {
-                snakeCollision = true;
-            }
-        }
-
-        if (snakeCollision) {
-            return this.gameOver();
         }
 
         this.updateMessage(this.drawMap());
