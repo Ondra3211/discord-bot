@@ -66,7 +66,7 @@ module.exports = {
 
         try {
 
-            if (ytdl.validateURL(argument)) {
+            if (ytdl.validateID(argument)) {
             
                 const info = await ytdl.getInfo(argument);
 
