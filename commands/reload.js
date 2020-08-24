@@ -5,11 +5,12 @@ module.exports = {
 	description: '',
 	async execute(msg, args) {
         
-        if (msg.author.id !== '319537484734398466') return;
+        if (msg.author.id !== '319537484734398466') {
+            return;
+        }
 
         if (!args[0]) {
-            msg.channel.send(':x: Musíš zadat název příkazu!');
-            return;
+            return msg.channel.send(':x: Musíš zadat název příkazu!');
         }
 
         const toReload = [];
@@ -18,6 +19,8 @@ module.exports = {
 
         if (commandName == 'all') {
             msg.client.commands.each(cmd => toReload.push(cmd));
+        } else if (!msg.client.commands.get(commandName)) {
+            return msg.channel.send(`:x: Příkaz ${commandName} neexistuje`);
         } else {
             toReload.push(msg.client.commands.get(commandName));
         }
