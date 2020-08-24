@@ -152,8 +152,7 @@ class SnakeGame {
                 break;
 
             case '❌':
-                this.gameOver();
-                break;
+                return this.gameOver();
 
             default:
                 return;
