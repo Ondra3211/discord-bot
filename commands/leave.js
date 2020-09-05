@@ -1,9 +1,9 @@
 module.exports = {
-	name: 'leave',
+    name: 'leave',
     description: 'Opustí voice channel',
     voice: true,
-	async execute(msg, args) {
-        
+    async execute(msg, args) {
+
         const serverQueue = msg.client.queue.get(msg.guild.id);
 
         if (!serverQueue) return;
@@ -12,7 +12,7 @@ module.exports = {
         msg.client.queue.delete(msg.guild.id);
         msg.channel.send(':wave: Odcházím...');
 
-        
+
 
     }
 };

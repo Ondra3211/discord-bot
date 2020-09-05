@@ -1,9 +1,9 @@
 module.exports = {
-	name: 'skip',
+    name: 'skip',
     description: 'Přeskočí skladbu',
     voice: true,
-	async execute(msg, args) {
-        
+    async execute(msg, args) {
+
         const serverQueue = msg.client.queue.get(msg.guild.id);
 
         if (!serverQueue || !serverQueue.playing) {

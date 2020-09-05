@@ -4,7 +4,7 @@ module.exports = {
     aliases: ['clear'],
     permission: ['MANAGE_MESSAGES'],
     description: 'Smaže zadaný počet zpráv',
-	async execute(msg, args) {
+    async execute(msg, args) {
 
         let count = 99;
 
@@ -19,5 +19,5 @@ module.exports = {
                 message.delete({ timeout: 10000 });
             })
         });
-	}
+    }
 };

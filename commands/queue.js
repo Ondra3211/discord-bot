@@ -1,11 +1,11 @@
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-	name: 'queue',
+    name: 'queue',
     description: 'Zobrazí sklady ve frontě',
     voice: true,
-	async execute(msg, args) {
-        
+    async execute(msg, args) {
+
         const serverQueue = msg.client.queue.get(msg.guild.id);
 
         if (!serverQueue || !serverQueue.playing) {
@@ -34,12 +34,12 @@ module.exports = {
         }
 
         const embed = new MessageEmbed()
-        .setTitle('**Fronta**')
-        .setColor('#5cb85c')
-        .setAuthor('SlimeBall', 'https://i.zerocz.eu/ja/7dQuXUidrC.png')
-        .setDescription(message)
-        .setThumbnail(`https://i.ytimg.com/vi/${songs[1].id}/hqdefault.jpg`)
-        .setFooter(`Stránka ${page}/${maxPage}`)
+            .setTitle('**Fronta**')
+            .setColor('#5cb85c')
+            .setAuthor('SlimeBall', 'https://i.zerocz.eu/ja/7dQuXUidrC.png')
+            .setDescription(message)
+            .setThumbnail(`https://i.ytimg.com/vi/${songs[1].id}/hqdefault.jpg`)
+            .setFooter(`Stránka ${page}/${maxPage}`)
 
         msg.channel.send(embed);
     }

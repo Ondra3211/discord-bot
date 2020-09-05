@@ -27,7 +27,7 @@ module.exports = {
 		for (let i = 1; i <= pings; i++) {
 			start = Date.now();
 			await message.edit(animation[i]);
-			
+
 			lastResult = (Date.now() - start);
 			results += lastResult;
 

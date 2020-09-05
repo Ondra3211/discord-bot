@@ -4,10 +4,10 @@ const ytpl = require('ytpl');
 const time = require('./../utils/time.js');
 
 module.exports = {
-	name: 'play',
+    name: 'play',
     description: 'Přehraje skladbu',
     voice: true,
-	async execute(msg, args) {
+    async execute(msg, args) {
 
         if (!args[0]) return msg.client.commands.get('resume').execute(msg, args);
         if (msg.member.voice.selfDeaf) return msg.channel.send(':x: Nesmíš mít ztlumené zvuky');
@@ -46,7 +46,7 @@ module.exports = {
 
             dispatcher.on('error', () => {
                 play(queue.songs[0]);
-               console.log('Přehrávání bylo přerušeno z nečekaného důvodu...');
+                console.log('Přehrávání bylo přerušeno z nečekaného důvodu...');
             });
         }
 
@@ -67,10 +67,10 @@ module.exports = {
         try {
 
             if (ytdl.validateID(argument)) {
-            
+
                 const info = await ytdl.getInfo(argument);
 
-                items = [ info ];
+                items = [info];
 
             } else if (ytpl.validateURL(argument)) {
 
@@ -114,7 +114,7 @@ module.exports = {
 
         if (serverQueue.playing && items.length > 1) return msg.channel.send(`:arrow_up: Přidáno do fronty \`${items.length}\` skladeb z playlistu ${argument}`);
         if (serverQueue.playing) return msg.channel.send(`:arrow_up: Přídáno do fronty \`${serverQueue.songs[serverQueue.songs.length - 1].title}\``);
-        
+
         if (items.length > 1) msg.channel.send(`:notes: Přehrávám \`${items.length}\` skladeb z playlistu \`${argument}\``);
 
         msg.channel.send(`:notes: **Přehrávám** \`${items[0].title}\``);
@@ -122,5 +122,5 @@ module.exports = {
         serverQueue.connection = await msg.member.voice.channel.join();
         msg.client.queue.set(msg.guild.id, serverQueue);
         play(serverQueue.songs[0]);
-	}
+    }
 };

@@ -1,8 +1,8 @@
 module.exports = {
-	name: 'resume',
+    name: 'resume',
     description: 'Přehraje pozastavenou skladbu',
     voice: true,
-	async execute(msg, args) {
+    async execute(msg, args) {
 
         const serverQueue = msg.client.queue.get(msg.guild.id);
 
@@ -14,5 +14,5 @@ module.exports = {
         serverQueue.connection.dispatcher.resume();
 
         msg.channel.send(':arrow_forward: Přehrávám');
-	}
+    }
 };

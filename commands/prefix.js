@@ -6,7 +6,7 @@ module.exports = {
     aliases: ['setprefix'],
     permission: ['MANAGE_GUILD'],
     description: 'Změní prefix na serveru',
-	async execute(msg, args) {
+    async execute(msg, args) {
 
         const defaultSettings = {
             prefix: prefix,
@@ -24,5 +24,5 @@ module.exports = {
         fs.writeFileSync('./guilds.json', data);
 
         msg.channel.send(`Prefix byl změněn na \`${args[0]}\``);
-	}
+    }
 };

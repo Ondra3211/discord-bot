@@ -1,19 +1,19 @@
 module.exports = {
-	name: 'shuffle',
+    name: 'shuffle',
     description: 'Informace o přehrávané skladbě',
     voice: true,
-	async execute(msg, args) {
+    async execute(msg, args) {
 
         const shuffle = array => {
 
             for (let i = (array.length - 1); i > 0; i--) {
-                
+
                 const random = Math.floor(Math.random() * i);
 
                 const temp = array[i];
                 array[i] = array[random];
                 array[random] = temp;
-                
+
             }
 
             return array;
@@ -28,5 +28,5 @@ module.exports = {
 
         msg.channel.send(':twisted_rightwards_arrows: Fronta byla zamíchána');
 
-	}
+    }
 };

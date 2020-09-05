@@ -14,9 +14,9 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
     try {
         console.log(`[INFO] Načítám ${file}`);
-	    const command = require(`./commands/${file}`);
+        const command = require(`./commands/${file}`);
         client.commands.set(command.name, command);
-    } catch(error) {
+    } catch (error) {
         console.log(`[INFO] Chyba při načítání ${file}`);
     }
 }
@@ -58,7 +58,7 @@ client.on('message', msg => {
 
     if (!msg.content.startsWith(guildPrefix)) return;
 
-	const args = msg.content.slice(guildPrefix.length).split(/ +/);
+    const args = msg.content.slice(guildPrefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
     const queue = msg.client.queue.get(msg.guild.id);
 
@@ -74,7 +74,7 @@ client.on('message', msg => {
         if (!msg.member.hasPermission(command.permission)) return command.permission_message ? msg.channel.send(command.permission_message) : msg.channel.send(':x: Nedostatečná oprávnění');
     }
 
-    
+
     command.execute(msg, args).catch(err => {
         console.log(`[INFO] Příkaz ${command.name}.js se nepovedlo vykonat`);
         console.log(err);

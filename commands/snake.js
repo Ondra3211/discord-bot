@@ -12,9 +12,9 @@ class SnakeGame {
 
     updateMessage(message) {
         const embed = new MessageEmbed()
-        .setTitle('**Snake Game**')
-        .setColor('#5cb85c')
-        .setDescription(message);
+            .setTitle('**Snake Game**')
+            .setColor('#5cb85c')
+            .setDescription(message);
 
         this.message.edit(embed);
     }
@@ -101,9 +101,9 @@ class SnakeGame {
     newGame() {
 
         const embed = new MessageEmbed()
-        .setTitle('**Snake Game**')
-        .setColor('#5cb85c')
-        .setDescription(':regional_indicator_l::regional_indicator_o::regional_indicator_a::regional_indicator_d::regional_indicator_i::regional_indicator_g:  :regional_indicator_g::regional_indicator_a::regional_indicator_m::regional_indicator_e:\n\n:grey_question: Ovládání pomocí reakce');
+            .setTitle('**Snake Game**')
+            .setColor('#5cb85c')
+            .setDescription(':regional_indicator_l::regional_indicator_o::regional_indicator_a::regional_indicator_d::regional_indicator_i::regional_indicator_g:  :regional_indicator_g::regional_indicator_a::regional_indicator_m::regional_indicator_e:\n\n:grey_question: Ovládání pomocí reakce');
 
         this.channel.send(embed).then(async message => {
 
@@ -138,7 +138,7 @@ class SnakeGame {
             case '⬆️':
                 snakeY -= 1;
                 break;
-  
+
             case '⬇️':
                 snakeY += 1;
                 break;
@@ -198,15 +198,15 @@ class SnakeGame {
 module.exports = {
     name: 'snake',
     description: 'Změní prefix na serveru',
-	async execute(msg, args) {
+    async execute(msg, args) {
 
         const games = msg.client.games.get(msg.guild.id) || msg.client.games.set(msg.guild.id, new Collection()).get(msg.guild.id);
 
-       if (games.get(msg.author.id)) {
+        if (games.get(msg.author.id)) {
             msg.channel.send(':x: Již máš rozehranou hru!');
-       } else {
-           games.set(msg.author.id, new SnakeGame(msg))
-       }
+        } else {
+            games.set(msg.author.id, new SnakeGame(msg))
+        }
 
-	}
+    }
 };

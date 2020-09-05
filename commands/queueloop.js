@@ -3,7 +3,7 @@ module.exports = {
     aliases: ['repeatqueue', 'queuerepeat'],
     description: 'Opakovaní fronty',
     voice: true,
-	async execute(msg, args) {
+    async execute(msg, args) {
 
         const serverQueue = msg.client.queue.get(msg.guild.id);
 
@@ -19,5 +19,5 @@ module.exports = {
 
         loop.enabled = true;
         msg.channel.send(':repeat: Opakování fronty zapnuto')
-	}
+    }
 };
