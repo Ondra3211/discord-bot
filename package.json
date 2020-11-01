@@ -8,9 +8,9 @@
     "discord.js": "^12.2.0",
     "ffmpeg-static": "^4.2.6",
     "node-fetch": "^2.6.0",
-    "ytdl-core": "^3.2.1",
-    "ytpl": "^0.3.0",
-    "ytsr": "^0.1.20"
+    "ytdl-core": "^4.0.2",
+    "ytpl": "^1.0.1",
+    "ytsr": "^1.0.4"
   },
   "devDependencies": {},
   "scripts": {
