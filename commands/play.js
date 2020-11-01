@@ -66,13 +66,13 @@ module.exports = {
 
         try {
 
-            if (ytdl.validateID(argument)) {
+            if (ytdl.validateURL(argument)) {
 
                 const info = await ytdl.getInfo(argument);
 
-                items = [info];
+                items = [info.videoDetails];
 
-            } else if (ytpl.validateURL(argument)) {
+            } else if (ytpl.validateID(argument)) {
 
                 const info = await ytpl(argument, { limit: 500 });
 
@@ -92,14 +92,14 @@ module.exports = {
         for (let i = 0; i < items.length; i++) {
 
             const info = items[i];
-
-            if (info.author.name === null) continue;
+            
+            if (info.author && info.author.name === null) continue;
 
             const song = {
                 url: info.video_url || info.url_simple || info.link,
                 title: info.title,
-                id: info.video_id || info.id || ytdl.getURLVideoID(info.link),
-                seconds: info.length_seconds || time.strToSec(info.duration),
+                id: info.videoId || info.id || ytdl.getURLVideoID(info.link),
+                seconds: info.lengthSeconds || time.strToSec(info.duration),
             }
 
             if (items.length === 1 && song.seconds > (3 * 60 * 60)) {
