@@ -96,7 +96,7 @@ module.exports = {
             if (info.author && info.author.name === null) continue;
 
             const song = {
-                url: info.video_url || info.url_simple || info.link,
+                url: info.video_url || info.url_simple || info.link || info.url,
                 title: info.title,
                 id: info.videoId || info.id || ytdl.getURLVideoID(info.link),
                 seconds: info.lengthSeconds || time.strToSec(info.duration),
@@ -110,9 +110,9 @@ module.exports = {
             serverQueue.songs.push(song);
         }
 
-        // ${argument} pak předělat na pěkny link na playlist
+        if (items.length < 1) return msg.channel.send(':x: 404 Not Found');
 
-        if (serverQueue.playing && items.length > 1) return msg.channel.send(`:arrow_up: Přidáno do fronty \`${items.length}\` skladeb z playlistu ${argument}`);
+        if (serverQueue.playing && serverQueue.songs.length > 1) return msg.channel.send(`:arrow_up: Přidáno do fronty \`${items.length}\` skladeb z playlistu ${argument}`);
         if (serverQueue.playing) return msg.channel.send(`:arrow_up: Přídáno do fronty \`${serverQueue.songs[serverQueue.songs.length - 1].title}\``);
 
         if (items.length > 1) msg.channel.send(`:notes: Přehrávám \`${items.length}\` skladeb z playlistu \`${argument}\``);
