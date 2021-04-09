@@ -7,18 +7,18 @@ module.exports = {
     description: 'Koronavirus',
     async execute(msg, args) {
 
-        fetch('https://api.apify.com/v2/key-value-stores/K373S4uCFR9W1K8ei/records/LATEST?disableRedirect=true')
+        fetch('https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/zakladni-prehled.json')
             .then(res => res.json())
-            .then(json => {
-
+            .then(({ data }) => {
+                
                 const embed = new MessageEmbed()
                     .setTitle('**:flag_cz: KORONAVIRUS**')
                     .setColor('#5cb85c')
                     .addFields(
-                        { name: ':egg: Potvrzeno', value: json.active, inline: true },
-                        { name: ':syringe: Úmrtí', value: json.deceased, inline: true },
-                        { name: ':pill: Vyléčení', value: json.recovered, inline: true }
-                    )
+                        { name: ':microbe: Aktivní', value: data[0].aktivni_pripady, inline: true },
+                        { name: ':syringe: Úmrtí', value: data[0].umrti, inline: true },
+                        { name: ':pill: Vyléčení', value: data[0].vyleceni, inline: true }
+                    );
 
                 msg.channel.send(embed);
 
