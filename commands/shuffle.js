@@ -1,6 +1,6 @@
 module.exports = {
     name: 'shuffle',
-    description: 'Informace o přehrávané skladbě',
+    description: 'Zamíchání playlistu skladeb',
     voice: true,
     async execute(msg, args) {
 
