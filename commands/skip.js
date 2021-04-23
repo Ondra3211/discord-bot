@@ -1,5 +1,6 @@
 module.exports = {
     name: 'skip',
+    aliases: ['next'],
     description: 'Přeskočí skladbu',
     voice: true,
     async execute(msg, args) {
