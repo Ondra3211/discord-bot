@@ -74,6 +74,8 @@ class SnakeGame {
                     if (this.snakeBody[i].x == x && this.snakeBody[i].y == y) {
                         if (i == 0) {
                             mapContent += ':frog:';
+                        } else if (i == this.snakeBody.length - 1) {
+                            mapContent += ':small_orange_diamond:';
                         } else {
                             mapContent += ':white_large_square:';
                         }
