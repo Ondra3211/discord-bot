@@ -10,13 +10,13 @@ class SnakeGame {
         this.newGame();
     }
 
-    updateMessage(message) {
+    async updateMessage(message) {
         const embed = new MessageEmbed()
             .setTitle('**Snake Game**')
             .setColor('#5cb85c')
             .setDescription(message);
 
-        this.message.edit({ embeds: [embed] });
+        await this.message.edit({ embeds: [embed] });
     }
 
     generatePosition() {
@@ -44,9 +44,9 @@ class SnakeGame {
         this.mapApple = newApple;
     }
 
-    cleanGame() {
+    async cleanGame() {
         this.collector.stop();
-        this.message.reactions.removeAll();
+        await this.message.reactions.removeAll();
         this.message.client.games.get(this.message.guild.id).delete(this.user.id);
     }
 
@@ -110,13 +110,14 @@ class SnakeGame {
             this.message = message;
             let loaded = false;
 
-            this.collector = this.message.createReactionCollector((emoji, user) => !user.bot);
+            this.collector = this.message.createReactionCollector();
             this.collector.on('collect', async (r, user) => {
-                await r.users.remove(user.id);
 
                 if (user.id == this.user.id && loaded == true) {
                     this.move(r.emoji.name);
                 }
+
+                if (!user.bot) await r.users.remove(user.id);
             });
 
             await message.react('⬅️');
