@@ -16,7 +16,7 @@ class SnakeGame {
             .setColor('#5cb85c')
             .setDescription(message);
 
-        this.message.edit(embed);
+        this.message.edit({ embeds: [embed] });
     }
 
     generatePosition() {
@@ -105,7 +105,7 @@ class SnakeGame {
             .setColor('#5cb85c')
             .setDescription(':regional_indicator_l::regional_indicator_o::regional_indicator_a::regional_indicator_d::regional_indicator_i::regional_indicator_g:  :regional_indicator_g::regional_indicator_a::regional_indicator_m::regional_indicator_e:\n\n:grey_question: Ovládání pomocí reakce');
 
-        this.channel.send(embed).then(async message => {
+        this.channel.send({ embeds: [embed] }).then(async message => {
 
             this.message = message;
             let loaded = false;

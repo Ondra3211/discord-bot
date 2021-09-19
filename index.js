@@ -1,8 +1,15 @@
 const fs = require('fs');
-const { Client, Collection } = require('discord.js');
+const { Client, Collection, Intents } = require('discord.js');
 const { prefix, token } = require('./config.json');
 
-const client = new Client();
+const client = new Client({
+    intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+        Intents.FLAGS.GUILD_VOICE_STATES
+    ]
+});
 
 client.commands = new Collection();
 client.games = new Collection();
@@ -51,7 +58,8 @@ client.once('ready', async () => {
 
 });
 
-client.on('message', msg => {
+client.on('messageCreate', msg => {
+    
     if (!msg.guild || msg.author.bot) return;
 
     const guildPrefix = client.settings[msg.guild.id] && client.settings[msg.guild.id].prefix || prefix;
@@ -73,7 +81,6 @@ client.on('message', msg => {
     if (command.permission) {
         if (!msg.member.hasPermission(command.permission)) return command.permission_message ? msg.channel.send(command.permission_message) : msg.channel.send(':x: Nedostatečná oprávnění');
     }
-
 
     command.execute(msg, args).catch(err => {
         console.log(`[INFO] Příkaz ${command.name}.js se nepovedlo vykonat`);

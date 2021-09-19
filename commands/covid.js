@@ -20,7 +20,7 @@ module.exports = {
                         { name: ':pill: Vyléčení', value: data[0].vyleceni, inline: true }
                     );
 
-                msg.channel.send(embed);
+                msg.channel.send({ embeds: [embed] });
 
             }).catch(err => msg.channel.send(':x: Nastala chyba pri získávání informací'));
 

@@ -41,6 +41,6 @@ module.exports = {
             .setThumbnail(`https://i.ytimg.com/vi/${songs[1].id}/hqdefault.jpg`)
             .setFooter(`Stránka ${page}/${maxPage}`)
 
-        msg.channel.send(embed);
+        msg.channel.send({ embeds: [embed] });
     }
 };

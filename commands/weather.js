@@ -30,7 +30,7 @@ module.exports = {
                     .setThumbnail(`https://openweathermap.org/img/wn/${json.weather[0].icon}@4x.png`)
                     .setTimestamp();
 
-                msg.channel.send(embed);
+                msg.channel.send({ embeds: [embed] });
 
             }).catch(err => msg.channel.send(':x: Nastala chyba při získávání počasí'));
 

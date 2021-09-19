@@ -56,7 +56,7 @@ module.exports = {
             .setColor('#5cb85c')
             .setDescription(message);
 
-        msg.channel.send(embed);
+        msg.channel.send({ embeds: [embed] });
 
     }
 };
