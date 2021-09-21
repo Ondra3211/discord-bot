@@ -79,7 +79,7 @@ client.on('messageCreate', msg => {
     }
 
     if (command.permission) {
-        if (!msg.member.hasPermission(command.permission)) return command.permission_message ? msg.channel.send(command.permission_message) : msg.channel.send(':x: Nedostatečná oprávnění');
+        if (!msg.member.permissions.has(command.permission)) return command.permission_message ? msg.channel.send(command.permission_message) : msg.channel.send(':x: Nedostatečná oprávnění');
     }
 
     command.execute(msg, args).catch(err => {
