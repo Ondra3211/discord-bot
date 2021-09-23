@@ -13,7 +13,6 @@ const client = new Client({
 
 client.commands = new Collection();
 client.games = new Collection();
-client.queue = new Map();
 client.settings = require('./guilds.json');
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -40,7 +39,6 @@ client.once('ready', async () => {
             { type: 'PLAYING', text: 'písničky' },
             { type: 'PLAYING', text: `na ${client.guilds.cache.size} discordech` },
             { type: 'WATCHING', text: 'zerocz.eu' },
-            { type: 'STREAMING', text: `hudbu na ${client.queue.size} serverech` }
         ];
 
         if (activites.length === activity) activity = 0;
@@ -68,15 +66,10 @@ client.on('messageCreate', msg => {
 
     const args = msg.content.slice(guildPrefix.length).split(/ +/);
     const commandName = args.shift().toLowerCase();
-    const queue = msg.client.queue.get(msg.guild.id);
 
     const command = client.commands.get(commandName) || client.commands.find(c => c.aliases && c.aliases.includes(commandName));
 
     if (!command) return;
-
-    if (command.voice) {
-        if (!msg.member.voice.channel || (queue && msg.member.voice.channel.id !== queue.voice.id)) return msg.channel.send(':x: Musíš být ve voice channelu');
-    }
 
     if (command.permission) {
         if (!msg.member.permissions.has(command.permission)) return command.permission_message ? msg.channel.send(command.permission_message) : msg.channel.send(':x: Nedostatečná oprávnění');
