@@ -15,9 +15,9 @@ module.exports = {
                     .setTitle('**:flag_cz: KORONAVIRUS**')
                     .setColor('#5cb85c')
                     .addFields(
-                        { name: ':microbe: Aktivní', value: data[0].aktivni_pripady, inline: true },
-                        { name: ':syringe: Úmrtí', value: data[0].umrti, inline: true },
-                        { name: ':pill: Vyléčení', value: data[0].vyleceni, inline: true }
+                        { name: ':microbe: Aktivní', value: data[0].aktivni_pripady.toString(), inline: true },
+                        { name: ':syringe: Úmrtí', value: data[0].umrti.toString(), inline: true },
+                        { name: ':pill: Vyléčení', value: data[0].vyleceni.toString(), inline: true }
                     );
 
                 msg.channel.send({ embeds: [embed] });
