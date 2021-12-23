@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
+const { covidToken } = require('./../config.json');
 
 module.exports = {
     name: 'covid',
@@ -7,22 +8,26 @@ module.exports = {
     description: 'Koronavirus',
     async execute(msg, args) {
 
-        fetch('https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/zakladni-prehled.json')
-            .then(res => res.json())
-            .then(({ data }) => {
-                
-                const embed = new MessageEmbed()
-                    .setTitle('**:flag_cz: KORONAVIRUS**')
-                    .setColor('#5cb85c')
-                    .addFields(
-                        { name: ':microbe: Aktivní', value: data[0].aktivni_pripady.toString(), inline: true },
-                        { name: ':syringe: Úmrtí', value: data[0].umrti.toString(), inline: true },
-                        { name: ':pill: Vyléčení', value: data[0].vyleceni.toString(), inline: true }
-                    );
-
-                msg.channel.send({ embeds: [embed] });
-
-            }).catch(err => msg.channel.send(':x: Nastala chyba pri získávání informací'));
+        try {
+            const res = await fetch(`https://onemocneni-aktualne.mzcr.cz/api/v3/zakladni-prehled?page=1&itemsPerPage=100&apiToken=${covidToken}`);
+            const covidData = await res.json();
+            const data = covidData["hydra:member"][0];
+    
+            const embed = new MessageEmbed()
+                .setTitle('**:flag_cz: KORONAVIRUS**')
+                .setColor('#5cb85c')
+                .addFields(
+                    { name: ':microbe: Aktivní', value: data.aktivni_pripady.toString(), inline: false },
+                    { name: ':skull: Úmrtí', value: data.umrti.toString(), inline: false },
+                    { name: ':pill: Vyléčení', value: data.vyleceni.toString(), inline: false },
+                    { name: ':syringe: Očkováno', value: data.ockovane_osoby_celkem.toString(), inline: false }
+                );
+    
+            msg.channel.send({ embeds: [embed] });
+            
+        } catch (err) {
+            msg.channel.send(':x: Nastala chyba pri získávání informací');
+        }
 
     }
 };
