@@ -11,7 +11,7 @@ module.exports = {
         const city = inter.options.getString('mesto') || 'Praha';
         const cityEncoded = encodeURI(city);
 
-        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityEncoded},CZ&units=metric&lang=CZ&appid=${weatherToken}`);
+        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityEncoded}&units=metric&lang=CZ&appid=${weatherToken}`);
         const json = await res.json();    
 
         if (json.cod == 404) return inter.reply(`:x: Město \`${city}\` neexistuje`);
@@ -19,7 +19,7 @@ module.exports = {
         const embed = new MessageEmbed()
             .setTitle('**Počasí**')
             .setColor('#5cb85c')
-            .setDescription(`${json.name} - ${json.weather[0].description}`)
+            .setDescription(`${json.name} (${json.sys.country}) - ${json.weather[0].description}`)
             .addFields(
                 { name: ':thermometer: Teplota', value: `${json.main.temp} °C`, inline: true },
                 { name: ':wind_blowing_face: Rychlost větru', value: `${json.wind.speed} m/s`, inline: true },
