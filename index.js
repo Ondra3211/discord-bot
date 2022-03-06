@@ -65,8 +65,9 @@ client.on('interactionCreate', async interaction => {
     if (command.permission) {
         if (!interaction.member.permissions.has(command.permission)) return interaction.reply({ content: ':x: Nedostatečné oprávnění!',  ephemeral: true });
     }
-
-    await command.execute(interaction);
+    await command.execute(interaction).catch(error => {
+        interaction.reply(':x: Něco se nepovedlo :(');
+    });
 });
 
 client.login(token);

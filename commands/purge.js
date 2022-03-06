@@ -11,8 +11,7 @@ module.exports = {
 
         const count = inter.options.getInteger('pocet', true);
 
-        inter.channel.bulkDelete(count, true).then(messages => {
-            inter.reply({ content: `:white_check_mark: Smazáno ${(messages.size)} zpráv`, ephemeral: true });
-        });
+        const messages = await inter.channel.bulkDelete(count, true);
+        inter.reply({ content: `:white_check_mark: Smazáno ${(messages.size)} zpráv`, ephemeral: true });
     }
 };
