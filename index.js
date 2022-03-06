@@ -67,6 +67,7 @@ client.on('interactionCreate', async interaction => {
     }
     await command.execute(interaction).catch(error => {
         interaction.reply(':x: Něco se nepovedlo :(');
+        console.log(error);
     });
 });
 
