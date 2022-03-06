@@ -11,9 +11,9 @@ module.exports = {
     .setDescription('Prehraje pisnicku')
     .addStringOption(option => option.setName('song').setDescription('Nazev pisnicky').setRequired(true)),
     async execute(inter) {  
-        inter.deferReply();
+        await inter.deferReply();
         
-        const channel = inter.member?.voice.channel;
+        const channel = inter.member.voice?.channel;
         if (!channel) return inter.editReply(':x: Musíš být v místnosti!');
 
         let song = inter.options.getString('song');
