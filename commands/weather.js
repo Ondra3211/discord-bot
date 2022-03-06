@@ -13,7 +13,7 @@ module.exports = {
         const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityEncoded},CZ&units=metric&lang=CZ&appid=f3e1531955a61dfcfd5c193078fbc705`);
         const json = await res.json();    
 
-        if (json.cod == 404) return msg.channel.send(`:x: Město \`${city}\` neexistuje`);
+        if (json.cod == 404) return inter.reply(`:x: Město \`${city}\` neexistuje`);
 
         const embed = new MessageEmbed()
             .setTitle('**Počasí**')
