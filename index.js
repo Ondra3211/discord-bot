@@ -1,8 +1,6 @@
 const fs = require('node:fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { prefix, token } = require('./config.json');
-const { data } = require('./commands/snake');
-const { permission } = require('./commands/purge');
 
 const client = new Client({
     intents: [
