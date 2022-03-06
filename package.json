@@ -4,10 +4,16 @@
   "description": "Discord Bot",
   "main": "index.js",
   "dependencies": {
+    "@discordjs/opus": "^0.5.3",
     "@discordjs/rest": "^0.3.0",
+    "@discordjs/voice": "^0.8.0",
     "discord-api-types": "^0.27.3",
     "discord.js": "^13.6.0",
-    "node-fetch": "^2.6.2"
+    "ffmpeg-static": "^4.4.1",
+    "node-fetch": "^2.6.2",
+    "sodium": "^3.0.2",
+    "ytdl-core": "^4.11.0",
+    "ytsr": "^3.6.0"
   },
   "scripts": {
     "start": "node index.js"
