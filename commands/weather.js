@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
+const { weatherToken } = require('../config.json')
 
 module.exports = {
     data: new SlashCommandBuilder().setName('weather')
@@ -10,7 +11,7 @@ module.exports = {
         const city = inter.options.getString('mesto') || 'Praha';
         const cityEncoded = encodeURI(city);
 
-        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityEncoded},CZ&units=metric&lang=CZ&appid=f3e1531955a61dfcfd5c193078fbc705`);
+        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityEncoded},CZ&units=metric&lang=CZ&appid=${weatherToken}`);
         const json = await res.json();    
 
         if (json.cod == 404) return inter.reply(`:x: Město \`${city}\` neexistuje`);
