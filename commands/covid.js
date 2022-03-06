@@ -18,10 +18,10 @@ module.exports = {
                 .setTitle('**:flag_cz: KORONAVIRUS**')
                 .setColor('#5cb85c')
                 .addFields(
-                    { name: ':microbe: Aktivní', value: data.aktivni_pripady.toLocaleString() + ' (+' +  data.potvrzene_pripady_vcerejsi_den.toLocaleString() + ')', inline: false },
-                    { name: ':pill: Vyléčení', value: data.vyleceni.toLocaleString(), inline: false },
-                    { name: ':syringe: Očkováno', value: data.ockovane_osoby_celkem.toLocaleString() + ' (+' +  data.vykazana_ockovani_vcerejsi_den.toLocaleString() + ')', inline: false },
-                    { name: ':skull: Úmrtí', value: data.umrti.toLocaleString(), inline: false }
+                    { name: ':microbe: Aktivní', value: data.aktivni_pripady.toLocaleString('cs-CZ') + ' (+' +  data.potvrzene_pripady_vcerejsi_den.toLocaleString() + ')', inline: false },
+                    { name: ':pill: Vyléčení', value: data.vyleceni.toLocaleString('cs-CZ'), inline: false },
+                    { name: ':syringe: Očkováno', value: data.ockovane_osoby_celkem.toLocaleString('cs-CZ') + ' (+' +  data.vykazana_ockovani_vcerejsi_den.toLocaleString() + ')', inline: false },
+                    { name: ':skull: Úmrtí', value: data.umrti.toLocaleString('cs-CZ'), inline: false }
                 );
     
             inter.reply({ embeds: [embed] });
