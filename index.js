@@ -1,6 +1,8 @@
 const fs = require('node:fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { prefix, token } = require('./config.json');
+const { data } = require('./commands/snake');
+const { permission } = require('./commands/purge');
 
 const client = new Client({
     intents: [
@@ -59,6 +61,10 @@ client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
     const command = client.commands.get(interaction.commandName);
 	if (!command) return;
+
+    if (command.permission) {
+        if (!interaction.member.permissions.has(command.permission)) return interaction.reply({ content: ':x: Nedostatečné oprávnění!',  ephemeral: true });
+    }
 
     await command.execute(interaction);
 });

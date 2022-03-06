@@ -6,6 +6,7 @@ module.exports = {
     .setName('reload')
     .setDescription('Znovu nacte prikazy')
     .addStringOption(option => option.setName('prikaz').setDescription('Prikaz k obnoveni').setRequired(true)),
+    permission: ['ADMINISTRATOR'],
     async execute(inter) {
 
         if (inter.member.id != '319537484734398466') return;
