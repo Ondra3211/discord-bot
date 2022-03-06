@@ -4,7 +4,9 @@
   "description": "Discord Bot",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^13.1.0",
+    "@discordjs/rest": "^0.3.0",
+    "discord-api-types": "^0.27.3",
+    "discord.js": "^13.6.0",
     "node-fetch": "^2.6.2"
   },
   "scripts": {
