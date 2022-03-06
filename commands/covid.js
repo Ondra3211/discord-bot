@@ -1,12 +1,13 @@
 const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
 const { covidToken } = require('./../config.json');
 
 module.exports = {
-    name: 'covid',
-    aliases: ['coronavirus', 'korona'],
-    description: 'Koronavirus',
-    async execute(msg, args) {
+    data: new SlashCommandBuilder()
+    .setName('covid')
+    .setDescription('Aktualni COVID informace'),
+    async execute(inter) {
 
         try {
             const res = await fetch(`https://onemocneni-aktualne.mzcr.cz/api/v3/zakladni-prehled?page=1&itemsPerPage=100&apiToken=${covidToken}`);
@@ -23,10 +24,10 @@ module.exports = {
                     { name: ':skull: Úmrtí', value: data.umrti.toLocaleString(), inline: false }
                 );
     
-            msg.channel.send({ embeds: [embed] });
+            inter.reply({ embeds: [embed] });
             
         } catch (err) {
-            msg.channel.send(':x: Nastala chyba pri získávání informací');
+            inter.reply(':x: Nastala chyba pri získávání informací');
         }
 
     }

@@ -1,7 +1,10 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
 module.exports = {
-	name: 'ping',
-	description: 'Ping!',
-	async execute(msg, args) {
+	data: new SlashCommandBuilder()
+	.setName('ping')
+	.setDescription('Odezva k API'),
+	async execute(inter) {
 
 		const sleep = (ms) => {
 			return new Promise(resolve => setTimeout(resolve, ms));
@@ -11,7 +14,7 @@ module.exports = {
 			'Pinging.', 'Pinging..', 'Pinging...', 'Pinging....', 'Pinging.....'
 		];
 
-		let message = await msg.channel.send(animation[0]);
+		let message = await inter.reply({ content: animation[0], fetchReply: true });
 
 		const sleepTime = 1500;
 		const pings = 5;
@@ -39,6 +42,6 @@ module.exports = {
 
 		const ping = (results / pings).toFixed();
 
-		message.edit(`Min: ${min} ms, Prům: ${ping} ms, Max: ${max} ms`);
+		await message.edit(`Min: ${min} ms, Prům: ${ping} ms, Max: ${max} ms`);
 	}
 };

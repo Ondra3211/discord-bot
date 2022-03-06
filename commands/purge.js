@@ -1,23 +1,17 @@
 
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
 module.exports = {
-    name: 'purge',
-    aliases: ['clear'],
-    permission: ['MANAGE_MESSAGES'],
-    description: 'Smaže zadaný počet zpráv',
-    async execute(msg, args) {
+    data: new SlashCommandBuilder()
+    .setName('purge')
+    .setDescription('Vymaze zadany pocet zprav')
+    .addIntegerOption(option => option.setName('pocet').setDescription('Pocet zprav k vymazani').setRequired(true)),
+    async execute(inter) {
 
-        let count = 99;
+        const count = inter.options.getInteger('pocet', true) + 1;
 
-        if (args[0] && parseInt(args[0]))
-            count = (parseInt(args[0]) + 1);
-
-        if (args[0] && (count < 1 || count > 99))
-            return msg.channel.send(':x: Mohu smazat zprávy pouze v rozmezí `0-99`');
-
-        msg.channel.bulkDelete(count, true).then(messages => {
-            msg.channel.send(`:white_check_mark: Smazáno ${(messages.size - 1)} zpráv`).then(message => {
-                message.delete({ timeout: 10000 });
-            })
+        inter.channel.bulkDelete(count, true).then(messages => {
+            inter.reply({ content: `:white_check_mark: Smazáno ${(messages.size - 1)} zpráv`, ephemeral: true });
         });
     }
 };

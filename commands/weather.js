@@ -1,15 +1,13 @@
 const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
 
 module.exports = {
-    name: 'weather',
-    description: 'Počasí',
-    async execute(msg, args) {
-        if (!args[0]) {
-            args[0] = 'Praha';
-        }
-
-        const city = args.join(' ');
+    data: new SlashCommandBuilder().setName('weather')
+    .setDescription('Pocasi v dane lokalite')
+    .addStringOption(option => option.setName('mesto').setDescription('Mesto')),
+    async execute(inter) {
+        const city = inter.options.getString('mesto') || 'Praha';
         const cityEncoded = encodeURI(city);
 
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityEncoded},CZ&units=metric&lang=CZ&appid=f3e1531955a61dfcfd5c193078fbc705`)
@@ -30,9 +28,9 @@ module.exports = {
                     .setThumbnail(`https://openweathermap.org/img/wn/${json.weather[0].icon}@4x.png`)
                     .setTimestamp();
 
-                msg.channel.send({ embeds: [embed] });
+                inter.reply({ embeds: [embed] });
 
-            }).catch(err => msg.channel.send(':x: Nastala chyba při získávání počasí'));
+            }).catch(err => inter.reply(':x: Nastala chyba při získávání počasí'));
 
     }
 };

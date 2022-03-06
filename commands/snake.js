@@ -1,9 +1,10 @@
 const { MessageEmbed, Collection } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 class SnakeGame {
     constructor(msg) {
-        this.channel = msg.channel;
-        this.user = msg.author;
+        this.channel = msg;
+        this.user = msg.member;
         this.mapSize = 5;
         this.snakeBody = [this.generatePosition()];
         this.generateApple();
@@ -107,7 +108,7 @@ class SnakeGame {
             .setColor('#5cb85c')
             .setDescription(':regional_indicator_l::regional_indicator_o::regional_indicator_a::regional_indicator_d::regional_indicator_i::regional_indicator_g:  :regional_indicator_g::regional_indicator_a::regional_indicator_m::regional_indicator_e:\n\n:grey_question: Ovládání pomocí reakce');
 
-        this.channel.send({ embeds: [embed] }).then(async message => {
+        this.channel.reply({ embeds: [embed], fetchReply: true }).then(async message => {
 
             this.message = message;
             let loaded = false;
@@ -199,16 +200,15 @@ class SnakeGame {
 
 
 module.exports = {
-    name: 'snake',
-    description: 'Změní prefix na serveru',
+    data: new SlashCommandBuilder().setName('snake').setDescription('Snake game'),
     async execute(msg, args) {
 
         const games = msg.client.games.get(msg.guild.id) || msg.client.games.set(msg.guild.id, new Collection()).get(msg.guild.id);
 
-        if (games.get(msg.author.id)) {
-            msg.channel.send(':x: Již máš rozehranou hru!');
+        if (games.get(msg.member.id)) {
+            msg.reply(':x: Již máš rozehranou hru!');
         } else {
-            games.set(msg.author.id, new SnakeGame(msg))
+            games.set(msg.member.id, new SnakeGame(msg))
         }
 
     }
