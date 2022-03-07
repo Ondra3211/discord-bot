@@ -15,7 +15,7 @@ module.exports = {
         if (!channel) return inter.followUp(':x: Musíš být v místnosti!');
     
         const song = await playdl.search(inter.options.getString('song'), { limit: 1 });
-        if (!song) return inter.followUp(':x: Nenalezeno');
+        if (!song[0]) return await inter.followUp(':x: Nenalezeno');
 
         const stream = await playdl.stream(song[0].url);
 
