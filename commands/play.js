@@ -1,7 +1,6 @@
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { RequestManager } = require('@discordjs/rest');
-const { joinVoiceChannel, createAudioResource, createAudioPlayer, entersState, NoSubscriberBehavior, VoiceConnectionStatus, AudioPlayer, AudioPlayerStatus } = require('@discordjs/voice');
+const { joinVoiceChannel, createAudioResource, createAudioPlayer, entersState, VoiceConnectionStatus, AudioPlayerStatus } = require('@discordjs/voice');
 const ytdl = require('ytdl-core')
 const ytsr = require('ytsr');
 
@@ -14,16 +13,12 @@ module.exports = {
         await inter.deferReply();
         
         const channel = inter.member.voice?.channel;
-        if (!channel) return inter.editReply(':x: Musíš být v místnosti!');
-
-        let song = inter.options.getString('song');
+        if (!channel) return inter.followUp(':x: Musíš být v místnosti!');
     
-        if (!ytdl.validateURL(inter.options.getString('song'))) {
-            song = await ytsr(inter.options.getString('song'), { limit: 1 });
-            song = song.items[0]?.url
-        }
+        let song = await ytsr(inter.options.getString('song'), { limit: 1 });
+        song = song.items[0];
 
-        if (!song) return inter.editReply(':x: Nenalezeno');
+        if (!song) return inter.followUp(':x: Nenalezeno');
 
         const connection = joinVoiceChannel({
             channelId: channel.id,
@@ -31,20 +26,21 @@ module.exports = {
             adapterCreator: channel.guild.voiceAdapterCreator,
         });
 
-        await entersState(connection, VoiceConnectionStatus.Ready);
+        try {
+            await entersState(connection, VoiceConnectionStatus.Ready);
 
-        const player = createAudioPlayer();
-        player.on('error', error => {
-            connection.destroy();
-            return inter.editReply(':x: Nenalezeno');
-        });
-        player.on(AudioPlayerStatus.Playing, () => {
-            inter.editReply(':white_check_mark: Prehravam');
-        });
+            const player = createAudioPlayer();
+            const resource = createAudioResource(ytdl(song.url), { filter: 'audioonly' });
+            player.play(resource);
+            connection.subscribe(player);
 
+            await entersState(player, AudioPlayerStatus.Playing);
+            
+            inter.followUp(`:white_check_mark: Přehrávám **${song.title}**`);
+        } catch(error) {
+            inter.followUp(`:x: Nepodařilo se přehrát skladbu.`)
+            console.error(error);
+        }
 
-        const resource = createAudioResource(ytdl(song), { filter: 'audioonly' });
-        player.play(resource);
-        connection.subscribe(player);
     }
 };
