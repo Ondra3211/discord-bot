@@ -15,9 +15,9 @@ module.exports = {
         if (!channel) return inter.followUp(':x: Musíš být v místnosti!');
     
         const song = await playdl.search(inter.options.getString('song'), { limit: 1 });
-        const stream = await playdl.stream(song[0].url);
-
         if (!song) return inter.followUp(':x: Nenalezeno');
+
+        const stream = await playdl.stream(song[0].url);
 
         const connection = joinVoiceChannel({
             channelId: channel.id,
@@ -26,14 +26,14 @@ module.exports = {
         });
 
         try {
-            await entersState(connection, VoiceConnectionStatus.Ready);
+            await entersState(connection, VoiceConnectionStatus.Ready, 10_000);
 
             const player = createAudioPlayer();
             const resource = createAudioResource(stream.stream, { inputType: stream.type  });
             player.play(resource);
             connection.subscribe(player);
 
-            await entersState(player, AudioPlayerStatus.Playing);
+            await entersState(player, AudioPlayerStatus.Playing, 10_000);
             
             inter.followUp(`:notes: Přehrávám **${song[0].title}**`);
         } catch(error) {
