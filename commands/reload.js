@@ -54,7 +54,7 @@ module.exports = {
             .setColor('#5cb85c')
             .setDescription(message);
 
-        inter.reply({ embeds: [embed] });
+        inter.reply({ embeds: [embed], ephemeral: true });
 
     }
 };
