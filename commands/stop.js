@@ -7,8 +7,7 @@ module.exports = {
     .setName('stop')
     .setDescription('Zastavi prehravani'),
     async execute(inter) {
-        const connection = getVoiceConnection(inter.guild.id);
-        connection.destroy();
+        await inter.client.player.deleteQueue(inter.guild);
 
         inter.reply(':white_check_mark: Zastaveno')
     }

@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const { Client, Collection, Intents } = require('discord.js');
+const { Player } = require("discord-player");
 const { token } = require('./config.json');
 
 const client = new Client({
@@ -32,10 +33,14 @@ for (const file of commandFiles) {
 client.once('ready', async () => {
     console.log(`[INFO] Připojen za ${client.user.tag}`);
 
+    client.player = new Player(client);
+    client.player.on("trackStart", (queue, song) => queue.metadata.inter.followUp(`:notes: Přehrávám **${song.title}**`))
+
     let activity = 0;
 
     const changeActivity = () => {
         const activites = [
+            { type: 'PLAYING', text: ' s kamením' },
             { type: 'PLAYING', text: 'písničky' },
             { type: 'PLAYING', text: `na ${client.guilds.cache.size} discordech` },
             { type: 'WATCHING', text: 'zerocz.eu' },

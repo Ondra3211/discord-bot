@@ -1,7 +1,5 @@
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { joinVoiceChannel, createAudioResource, createAudioPlayer, entersState, VoiceConnectionStatus, AudioPlayerStatus } = require('@discordjs/voice');
-const playdl = require('play-dl')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,9 +10,32 @@ module.exports = {
         await inter.deferReply();
         
         const channel = inter.member.voice?.channel;
-        if (!channel) return inter.followUp(':x: Musíš být v místnosti!');
+        if (!channel) return inter.followUp({ content: ':x: Musíš být v místnosti!', ephemeral: true });
     
-        const song = await playdl.search(inter.options.getString('song'), { limit: 1 });
+        const queue = inter.client.player.createQueue(inter.guild, {
+            metadata: {
+                inter: inter
+            }
+        });
+        queue.metadata.inter = inter;
+
+        try {
+            if (!queue.connection) await queue.connect(inter.member.voice.channel);
+        } catch {
+            queue.destroy();
+            return await interaction.reply({ content: "Nepodařilo se připojit do místnosti!", ephemeral: true });
+        }
+
+
+        const song = (await inter.client.player.search(inter.options.getString('song'), {})).tracks[0];
+        if (!song) return await interaction.followUp({ content: ':x: Nepodařilo se přehrát skladbu.', ephemeral: true });
+
+        await queue.play(song);
+        queue.skip();
+        queue.setVolume(50);
+
+
+     /*   const song = await playdl.search(inter.options.getString('song'), { limit: 1 });
         if (!song[0]) return await inter.followUp(':x: Nenalezeno');
 
         const stream = await playdl.stream(song[0].url);
@@ -39,7 +60,7 @@ module.exports = {
         } catch(error) {
             inter.followUp(`:x: Nepodařilo se přehrát skladbu.`)
             console.error(error);
-        }
+        }*/
 
     }
 };
