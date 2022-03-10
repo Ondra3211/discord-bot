@@ -13,7 +13,8 @@ module.exports = {
         const queue = inter.client.player.createQueue(inter.guild, {
             metadata: {
                 inter: inter
-            }
+            },
+            initialVolume: 50
         });
         queue.metadata.inter = inter;
 
@@ -30,6 +31,5 @@ module.exports = {
 
         await queue.play(song);
         queue.skip();
-        queue.setVolume(50);
     }
 };
