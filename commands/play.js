@@ -31,34 +31,5 @@ module.exports = {
         await queue.play(song);
         queue.skip();
         queue.setVolume(50);
-
-
-     /*   const song = await playdl.search(inter.options.getString('song'), { limit: 1 });
-        if (!song[0]) return await inter.followUp(':x: Nenalezeno');
-
-        const stream = await playdl.stream(song[0].url);
-
-        const connection = joinVoiceChannel({
-            channelId: channel.id,
-            guildId: channel.guild.id,
-            adapterCreator: channel.guild.voiceAdapterCreator,
-        });
-
-        try {
-            await entersState(connection, VoiceConnectionStatus.Ready, 10_000);
-
-            const player = createAudioPlayer();
-            const resource = createAudioResource(stream.stream, { inputType: stream.type  });
-            player.play(resource);
-            connection.subscribe(player);
-
-            await entersState(player, AudioPlayerStatus.Playing, 10_000);
-            
-            inter.followUp(`:notes: Přehrávám **${song[0].title}**`);
-        } catch(error) {
-            inter.followUp(`:x: Nepodařilo se přehrát skladbu.`)
-            console.error(error);
-        }*/
-
     }
 };
