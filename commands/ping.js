@@ -1,18 +1,13 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-	data: new SlashCommandBuilder()
-	.setName('ping')
-	.setDescription('Odezva k API'),
+	data: new SlashCommandBuilder().setName('ping').setDescription('Odezva k API'),
 	async execute(inter) {
-
 		const sleep = (ms) => {
-			return new Promise(resolve => setTimeout(resolve, ms));
-		}
+			return new Promise((resolve) => setTimeout(resolve, ms));
+		};
 
-		const animation = [
-			'Pinging.', 'Pinging..', 'Pinging...', 'Pinging....', 'Pinging.....'
-		];
+		const animation = ['Pinging.', 'Pinging..', 'Pinging...', 'Pinging....', 'Pinging.....'];
 
 		let message = await inter.reply({ content: animation[0], fetchReply: true });
 
@@ -31,7 +26,7 @@ module.exports = {
 			start = Date.now();
 			await message.edit(animation[i]);
 
-			lastResult = (Date.now() - start);
+			lastResult = Date.now() - start;
 			results += lastResult;
 
 			min = Math.min(min, lastResult);
@@ -43,5 +38,5 @@ module.exports = {
 		const ping = (results / pings).toFixed();
 
 		await message.edit(`Min: ${min} ms, Prům: ${ping} ms, Max: ${max} ms`);
-	}
+	},
 };

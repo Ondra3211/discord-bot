@@ -1,33 +1,37 @@
 {
-  "name": "SlimeBall",
-  "version": "1.0.0",
-  "description": "Discord Bot",
-  "main": "index.js",
-  "dependencies": {
-    "@discordjs/opus": "^0.5.3",
-    "@discordjs/rest": "^0.3.0",
-    "@discordjs/voice": "^0.8.0",
-    "bufferutil": "^4.0.6",
-    "discord-api-types": "^0.27.3",
-    "discord-player": "^5.2.2",
-    "discord.js": "^13.6.0",
-    "erlpack": "github:discord/erlpack",
-    "ffmpeg-static": "^4.4.1",
-    "node-fetch": "^2.6.2",
-    "play-dl": "^1.8.9",
-    "sodium": "^3.0.2",
-    "utf-8-validate": "^5.0.8",
-    "ytdl-core": "^4.11.0",
-    "ytsr": "^3.6.0",
-    "zlib-sync": "^0.1.7"
-  },
-  "scripts": {
-    "start": "node index.js"
-  },
-  "keywords": [
-    "discord",
-    "bot"
-  ],
-  "author": "Ondřej Niesner",
-  "license": "ISC"
+	"name": "SlimeBall",
+	"version": "1.0.0",
+	"description": "Discord Bot",
+	"main": "index.js",
+	"dependencies": {
+		"@discordjs/opus": "^0.5.3",
+		"@discordjs/rest": "^0.3.0",
+		"@discordjs/voice": "^0.8.0",
+		"bufferutil": "^4.0.6",
+		"discord-api-types": "^0.27.3",
+		"discord-player": "^5.2.2",
+		"discord.js": "^13.6.0",
+		"erlpack": "github:discord/erlpack",
+		"ffmpeg-static": "^4.4.1",
+		"node-fetch": "^2.6.2",
+		"sodium": "^3.0.2",
+		"utf-8-validate": "^5.0.8",
+		"ytdl-core": "^4.11.0",
+		"zlib-sync": "^0.1.7"
+	},
+	"scripts": {
+		"start": "node index.js"
+	},
+	"keywords": [
+		"discord",
+		"bot"
+	],
+	"prettier": {
+		"tabWidth": 4,
+		"printWidth": 120,
+		"singleQuote": true,
+		"useTabs": true
+	},
+	"author": "Ondřej Niesner",
+	"license": "ISC"
 }
