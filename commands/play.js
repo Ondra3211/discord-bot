@@ -26,10 +26,11 @@ module.exports = {
 
 		await inter.deferReply();
 		const song = (await inter.client.player.search(inter.options.getString('song'), {})).tracks[0];
+		console.log(song);
 		if (!song)
 			return await interaction.followUp({ content: ':x: Nepodařilo se přehrát skladbu.', ephemeral: true });
 
 		await queue.play(song);
-		queue.skip();
+		//queue.skip();
 	},
 };

@@ -1,14 +1,14 @@
 const fs = require('node:fs');
-const { Client, Collection, Intents } = require('discord.js');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const { Player } = require('discord-player');
 const { token } = require('./config.json');
 
 const client = new Client({
 	intents: [
-		Intents.FLAGS.GUILDS,
-		Intents.FLAGS.GUILD_MESSAGES,
-		Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-		Intents.FLAGS.GUILD_VOICE_STATES,
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMessageReactions,
+		GatewayIntentBits.GuildVoiceStates,
 	],
 });
 
@@ -35,6 +35,8 @@ client.once('ready', async () => {
 	client.player.on('trackStart', (queue, song) =>
 		queue.metadata.inter.followUp(`:notes: Přehrávám **${song.title}**`)
 	);
+	client.player.on("error", (err) => {console.log(err);});
+	client.player.on("connectionError", (err) => {console.log(err);});
 
 	let activity = 0;
 
@@ -61,7 +63,7 @@ client.once('ready', async () => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-	if (!interaction.isCommand()) return;
+	if (!interaction.isChatInputCommand()) return;
 	const command = client.commands.get(interaction.commandName);
 	if (!command) return;
 
