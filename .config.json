@@ -1,6 +1,7 @@
 {
-    "token": "",
-    "clientId": "",
-    "covidToken": "",
-    "weatherToken": ""
+	"token": "",
+	"clientId": "",
+	"covidToken": "",
+	"weatherToken": "",
+	"webToken": ""
 }
