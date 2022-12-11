@@ -14,6 +14,9 @@ const client = new Client({
 
 client.commands = new Collection();
 client.games = new Collection();
+client.player = new Player(client);
+
+client.player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Přehrávám **${track.title}**!`));
 
 const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith('.js'));
 
@@ -30,13 +33,6 @@ for (const file of commandFiles) {
 
 client.once('ready', async () => {
 	console.log(`[INFO] Připojen za ${client.user.tag}`);
-
-	client.player = new Player(client);
-	client.player.on('trackStart', (queue, song) =>
-		queue.metadata.inter.followUp(`:notes: Přehrávám **${song.title}**`)
-	);
-	client.player.on("error", (err) => {console.log(err);});
-	client.player.on("connectionError", (err) => {console.log(err);});
 
 	let activity = 0;
 
