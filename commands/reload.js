@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -45,7 +45,7 @@ module.exports = {
 			}
 		}
 
-		const embed = new MessageEmbed().setTitle('**Načítání příkazů**').setColor('#5cb85c').setDescription(message);
+		const embed = new EmbedBuilder().setTitle('**Načítání příkazů**').setColor('#5cb85c').setDescription(message);
 
 		inter.reply({ embeds: [embed], ephemeral: true });
 	},

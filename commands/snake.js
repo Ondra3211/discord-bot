@@ -1,4 +1,4 @@
-const { MessageEmbed, Collection } = require('discord.js');
+const { EmbedBuilder, Collection } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 class SnakeGame {
@@ -12,7 +12,7 @@ class SnakeGame {
 	}
 
 	async updateMessage(message) {
-		const embed = new MessageEmbed().setTitle('**Snake Game**').setColor('#5cb85c').setDescription(message);
+		const embed = new EmbedBuilder().setTitle('**Snake Game**').setColor('#5cb85c').setDescription(message);
 
 		await this.message.edit({ embeds: [embed] });
 	}
@@ -97,7 +97,7 @@ class SnakeGame {
 	}
 
 	newGame() {
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle('**Snake Game**')
 			.setColor('#5cb85c')
 			.setDescription(

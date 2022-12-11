@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
 const { weatherToken } = require('../config.json');
@@ -19,7 +19,7 @@ module.exports = {
 
 		if (json.cod == 404) return inter.reply(`:x: Město \`${city}\` neexistuje`);
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle('**Počasí**')
 			.setColor('#5cb85c')
 			.setDescription(`${json.name} (${json.sys.country}) - ${json.weather[0].description}`)

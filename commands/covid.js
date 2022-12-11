@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
 const { covidToken } = require('./../config.json');
@@ -13,7 +13,7 @@ module.exports = {
 			const covidData = await res.json();
 			const data = covidData['hydra:member'][0];
 
-			const embed = new MessageEmbed()
+			const embed = new EmbedBuilder()
 				.setTitle('**:flag_cz: KORONAVIRUS**')
 				.setColor('#5cb85c')
 				.addFields(
